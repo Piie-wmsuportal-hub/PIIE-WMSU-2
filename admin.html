@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IE-WMSU | Department Management Console</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0F172A; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col justify-between">
+
+  <!-- PIN Screen -->
+  <div id="pinScreen" class="fixed inset-0 bg-[#0A0F1D] z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
+      <div class="w-14 h-14 rounded-2xl bg-rose-500/10 text-rose-500 border border-rose-500/20 flex items-center justify-center text-2xl mx-auto shadow-inner">
+        🔒
+      </div>
+      <div>
+        <h2 class="font-serif text-xl font-bold text-white">Department Console</h2>
+        <p class="text-xs text-slate-400 mt-1">Authorized access for IE Department Faculty & PIES Chapter Officers</p>
+      </div>
+
+      <input type="password" id="adminPin" maxlength="8" placeholder="••••" class="w-full text-center text-3xl tracking-widest py-3 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-rose-500 font-mono">
+      <p id="pinErr" class="text-xs text-rose-400 hidden">Invalid Department Passkey.</p>
+
+      <button id="unlockBtn" onclick="unlockConsole()" class="w-full py-3 bg-rose-700 hover:bg-rose-600 font-bold text-white text-xs rounded-xl transition shadow-lg">
+        Authorize Access →
+      </button>
+      <p class="text-[10px] text-slate-500">Access Passkey: 1904</p>
+    </div>
+  </div>
+
+  <!-- Management App -->
+  <div id="adminApp" class="hidden">
+    <header class="bg-slate-900 border-b border-slate-800 px-4 py-3 sticky top-0 z-30">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-rose-700 text-white font-bold flex items-center justify-center text-sm">IE</div>
+          <div>
+            <h1 class="text-sm font-bold text-white leading-tight">WMSU IE Management Hub</h1>
+            <p class="text-[10px] text-slate-400">Department of Industrial Engineering</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a href="index.html" class="text-xs text-slate-300 hover:text-white px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800">
+            View Public Portal ↗
+          </a>
+          <button onclick="lockConsole()" class="text-xs text-rose-400 hover:bg-rose-950/40 border border-rose-900/60 px-3 py-1.5 rounded-lg">
+            Lock
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 space-y-8">
+
+      <!-- SECTION: PUBLISH BULLETIN -->
+      <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-sm text-white">📢 Publish Department Advisory or Memo</h3>
+            <p class="text-xs text-slate-400">Post announcements that appear directly on the live student portal across all devices.</p>
+          </div>
+        </div>
+
+        <form id="bulletinForm" onsubmit="saveBulletin(event)" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block font-semibold text-slate-300 mb-1">Advisory Title *</label>
+              <input type="text" id="postTitle" required placeholder="e.g. Schedule of 4th Year OJT Orientation" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Category *</label>
+              <select id="postCat" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+                <option value="Academic">Academic</option>
+                <option value="PIES">PIES</option>
+                <option value="OJT">OJT</option>
+                <option value="Events">Events</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Content / Advisory Details *</label>
+            <textarea id="postSummary" rows="3" required placeholder="Write the full memo details or instructions here..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500"></textarea>
+          </div>
+
+          <!-- Cloudinary Upload -->
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-2">
+            <label class="block font-semibold text-slate-300">
+              📸 Attach Photo or Video from Device (Optional)
+            </label>
+            <p class="text-[11px] text-slate-500">Select any image (.png, .jpg) or short video clip (.mp4, .mov) directly from your phone gallery or laptop.</p>
+            
+            <input type="file" id="mediaFileInput" accept="image/*,video/*" class="block w-full text-slate-400 text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 cursor-pointer">
+            <p id="uploadStatusText" class="text-[11px] text-amber-400 font-semibold hidden"></p>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Document Link / Google Drive Attachment (Optional)</label>
+            <input type="url" id="postLink" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-rose-500 font-mono">
+          </div>
+
+          <button id="postSubmitBtn" type="submit" class="bg-rose-700 hover:bg-rose-600 text-white font-bold px-5 py-2.5 rounded-xl transition">
+            + Publish Announcement to Website
+          </button>
+        </form>
+      </section>
+
+      <!-- ACTIVE BULLETINS -->
+      <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white">Active Portal Bulletins</h3>
+          <button onclick="purgeAllBulletins()" class="text-rose-400 hover:text-rose-300 text-xs font-semibold px-2.5 py-1 rounded bg-rose-950/40 border border-rose-900/60">
+            Purge All Bulletins
+          </button>
+        </div>
+        <div id="adminBulletinList" class="space-y-3 text-xs"></div>
+      </section>
+
+      <!-- SOCIAL LINKS -->
+      <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white">🔗 Social Media & Student Chat Channels</h3>
+          <p class="text-xs text-slate-400">Configure links to make chat badges visible on the public portal. Leave blank to hide.</p>
+        </div>
+
+        <form onsubmit="saveSocials(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">💬 Facebook Page or Messenger Link</label>
+            <input type="url" id="socFb" placeholder="https://m.me/piiewmsusc or https://facebook.com/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">📷 Instagram Profile</label>
+            <input type="url" id="socIg" placeholder="https://instagram.com/piie_wmsu" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">✉️ Official Department / Chapter Email</label>
+            <input type="text" id="socEmail" placeholder="piiewmsu@gmail.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">✈️ Telegram Channel / Bot Link (Optional)</label>
+            <input type="url" id="socTg" placeholder="https://t.me/wmsu_ie" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block font-semibold text-slate-300 mb-1">🎮 Discord / Student Community Invite (Optional)</label>
+            <input type="url" id="socDiscord" placeholder="https://discord.gg/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+          </div>
+
+          <div class="sm:col-span-2 pt-2">
+            <button id="socSubmitBtn" type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition">
+              Save Social Links
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- SETTINGS & OFFICERS -->
+      <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-6">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white">⚙️ Department Portal Settings & Officer Access</h3>
+          <p class="text-xs text-slate-400">Manage security credentials, invite authorized officers, or reset portal data.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          
+          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4">
+            <div>
+              <h4 class="font-bold text-white text-sm">Update Console Access PIN</h4>
+              <p class="text-slate-400 text-[11px] mt-0.5">Change the master passkey required to access this admin panel.</p>
+            </div>
+
+            <form onsubmit="updateAdminPin(event)" class="space-y-3">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Current PIN</label>
+                <input type="password" id="curPin" required maxlength="8" placeholder="••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">New PIN (4–8 Digits)</label>
+                <input type="password" id="newPin" required maxlength="8" placeholder="••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+              </div>
+              <button type="submit" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition border border-slate-700">
+                Save New PIN
+              </button>
+            </form>
+          </div>
+
+          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4">
+            <div>
+              <h4 class="font-bold text-white text-sm">Authorized Officers Directory</h4>
+              <p class="text-slate-400 text-[11px] mt-0.5">Keep track of faculty and student officers permitted to post.</p>
+            </div>
+
+            <form onsubmit="addOfficer(event)" class="space-y-3">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Officer Name *</label>
+                <input type="text" id="officerName" required placeholder="e.g. Maria Santos" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Role / Committee *</label>
+                <input type="text" id="officerRole" required placeholder="e.g. PIES P.R.O. / Academics Lead" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+              </div>
+              <button type="submit" class="bg-rose-700 hover:bg-rose-600 text-white font-bold px-4 py-2 rounded-xl transition">
+                + Register Officer
+              </button>
+            </form>
+
+            <div class="pt-2 border-t border-slate-800">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Registered Authorized Team</span>
+              <div id="officersList" class="space-y-2"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    const BIN_ID = "6ab7bc34ffd5d16053315598";
+    const MASTER_KEY = "$2a$10$bT88xC6BfXoVDcPLZDt6auptMYUoWimb3bqrZr6WoU75bDVw9KclG";
+
+    const CLOUDINARY_CLOUD_NAME = "wuyejn89";
+    const CLOUDINARY_PRESET = "wmsu_ie_preset";
+
+    let currentCloudData = {
+      pin: "1904",
+      bulletins: [],
+      socials: {},
+      officers: []
+    };
+
+    async function pullCloudData() {
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest?nocache=${Date.now()}`);
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        
+        const json = await res.json();
+        currentCloudData = json.record || {};
+        return currentCloudData;
+      } catch (err) {
+        console.warn("Pull fallback:", err);
+        return currentCloudData;
+      }
+    }
+
+    async function pushCloudData() {
+      localStorage.setItem('wmsu_ie_bulletins', JSON.stringify(currentCloudData.bulletins || []));
+      localStorage.setItem('wmsu_ie_pin', currentCloudData.pin || "1904");
+
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": MASTER_KEY
+          },
+          body: JSON.stringify(currentCloudData)
+        });
+        return await res.json();
+      } catch (e) {
+        console.warn("Cloud sync stored locally:", e);
+      }
+    }
+
+    async function unlockConsole() {
+      const enteredPin = document.getElementById('adminPin').value.trim();
+      const btn = document.getElementById('unlockBtn');
+      const errText = document.getElementById('pinErr');
+      errText.classList.add('hidden');
+      btn.textContent = "Verifying...";
+
+      try {
+        const data = await pullCloudData();
+        const activePin = (data && data.pin) ? String(data.pin).trim() : "1904";
+
+        if (enteredPin === activePin || enteredPin === "1904") {
+          document.getElementById('pinScreen').classList.add('hidden');
+          document.getElementById('adminApp').classList.remove('hidden');
+          loadAdminUI();
+        } else {
+          errText.textContent = "Invalid Department Passkey.";
+          errText.classList.remove('hidden');
+        }
+      } catch (e) {
+        if (enteredPin === "1904") {
+          document.getElementById('pinScreen').classList.add('hidden');
+          document.getElementById('adminApp').classList.remove('hidden');
+          loadAdminUI();
+        } else {
+          errText.textContent = "Invalid Department Passkey.";
+          errText.classList.remove('hidden');
+        }
+      } finally {
+        btn.textContent = "Authorize Access →";
+      }
+    }
+
+    function lockConsole() {
+      document.getElementById('adminPin').value = '';
+      document.getElementById('pinErr').classList.add('hidden');
+      document.getElementById('adminApp').classList.add('hidden');
+      document.getElementById('pinScreen').classList.remove('hidden');
+    }
+
+    function loadAdminUI() {
+      const soc = currentCloudData.socials || {};
+      document.getElementById('socFb').value = soc.facebook || '';
+      document.getElementById('socIg').value = soc.instagram || '';
+      document.getElementById('socEmail').value = soc.email || '';
+      document.getElementById('socTg').value = soc.telegram || '';
+      document.getElementById('socDiscord').value = soc.discord || '';
+
+      renderAdminList();
+      renderOfficersList();
+    }
+
+    function renderAdminList() {
+      const container = document.getElementById('adminBulletinList');
+      const list = currentCloudData.bulletins || [];
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 py-3">No active bulletins found on the cloud.</p>';
+        return;
+      }
+
+      container.innerHTML = list.map((b, idx) => `
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-900">${b.category}</span>
+              <span class="text-[10px] text-slate-500">${b.date}</span>
+              ${b.mediaType ? `<span class="text-[10px] text-amber-400 font-bold uppercase">(${b.mediaType})</span>` : ''}
+            </div>
+            <h4 class="font-bold text-white text-sm">${b.title}</h4>
+            <p class="text-slate-400 mt-1">${b.summary}</p>
+          </div>
+          <button onclick="deleteBulletin(${idx})" class="text-rose-400 hover:text-rose-300 font-bold text-xs p-1 shrink-0">
+            ✕ Delete
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function uploadMediaFile(file) {
+      const isVideo = file.type.startsWith('video');
+      const resourceType = isVideo ? 'video' : 'image';
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error?.message || "Failed uploading media file.");
+      }
+
+      const data = await res.json();
+      return {
+        url: data.secure_url,
+        type: isVideo ? 'video' : 'image'
+      };
+    }
+
+    async function saveBulletin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('postSubmitBtn');
+      const statusText = document.getElementById('uploadStatusText');
+      const fileInput = document.getElementById('mediaFileInput');
+      
+      let mediaData = null;
+
+      if (fileInput.files && fileInput.files[0]) {
+        try {
+          btn.disabled = true;
+          statusText.classList.remove('hidden');
+          statusText.textContent = "Uploading media file to cloud... Please wait.";
+          
+          mediaData = await uploadMediaFile(fileInput.files[0]);
+        } catch (uploadErr) {
+          alert("Media upload error: " + uploadErr.message);
+          btn.disabled = false;
+          statusText.classList.add('hidden');
+          return;
+        }
+      }
+
+      btn.textContent = "Saving to Department Feed...";
+
+      const title = document.getElementById('postTitle').value.trim();
+      const category = document.getElementById('postCat').value.trim();
+      const summary = document.getElementById('postSummary').value.trim();
+      const link = document.getElementById('postLink').value.trim() || '#';
+      
+      const newPost = {
+        id: 'b_' + Date.now(),
+        title: title,
+        category: category,
+        summary: summary,
+        link: link,
+        mediaUrl: mediaData ? mediaData.url : null,
+        mediaType: mediaData ? mediaData.type : null,
+        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      };
+
+      if (!currentCloudData.bulletins) currentCloudData.bulletins = [];
+      currentCloudData.bulletins.unshift(newPost);
+
+      await pushCloudData();
+      
+      document.getElementById('bulletinForm').reset();
+      statusText.classList.add('hidden');
+      btn.disabled = false;
+      btn.textContent = "+ Publish Announcement to Website";
+      
+      renderAdminList();
+      alert('Post published live across all devices!');
+    }
+
+    async function deleteBulletin(index) {
+      if (!confirm("Are you sure you want to remove this bulletin from all devices?")) return;
+      currentCloudData.bulletins.splice(index, 1);
+      await pushCloudData();
+      renderAdminList();
+    }
+
+    async function purgeAllBulletins() {
+      if (!confirm("WARNING: This will delete ALL bulletins from the cloud database. Proceed?")) return;
+      currentCloudData.bulletins = [];
+      await pushCloudData();
+      renderAdminList();
+    }
+
+    async function saveSocials(e) {
+      e.preventDefault();
+      const btn = document.getElementById('socSubmitBtn');
+      btn.textContent = "Saving...";
+
+      currentCloudData.socials = {
+        facebook: document.getElementById('socFb').value.trim(),
+        instagram: document.getElementById('socIg').value.trim(),
+        email: document.getElementById('socEmail').value.trim(),
+        telegram: document.getElementById('socTg').value.trim(),
+        discord: document.getElementById('socDiscord').value.trim()
+      };
+
+      await pushCloudData();
+      alert("Social channels saved! They are now live on all student screens.");
+      btn.textContent = "Save Social Links";
+    }
+
+    async function updateAdminPin(e) {
+      e.preventDefault();
+      const current = document.getElementById('curPin').value.trim();
+      const next = document.getElementById('newPin').value.trim();
+
+      const activePin = currentCloudData.pin || "1904";
+      if (current !== activePin) {
+        alert("Current PIN entered is incorrect.");
+        return;
+      }
+      if (next.length < 4) {
+        alert("New PIN must be at least 4 digits.");
+        return;
+      }
+
+      currentCloudData.pin = next;
+      await pushCloudData();
+      document.getElementById('curPin').value = '';
+      document.getElementById('newPin').value = '';
+      alert("Master PIN successfully updated!");
+    }
+
+    function renderOfficersList() {
+      const container = document.getElementById('officersList');
+      const list = currentCloudData.officers || [];
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 text-[11px]">No officers registered yet.</p>';
+        return;
+      }
+
+      container.innerHTML = list.map((o, idx) => `
+        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px]">
+          <div>
+            <span class="font-bold text-white block">${o.name}</span>
+            <span class="text-slate-400">${o.role}</span>
+          </div>
+          <button onclick="deleteOfficer(${idx})" class="text-rose-400 hover:text-rose-300 font-bold px-2 py-0.5">
+            ✕
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function addOfficer(e) {
+      e.preventDefault();
+      const name = document.getElementById('officerName').value.trim();
+      const role = document.getElementById('officerRole').value.trim();
+
+      if (!currentCloudData.officers) currentCloudData.officers = [];
+      currentCloudData.officers.push({ id: 'o_' + Date.now(), name, role });
+
+      await pushCloudData();
+      document.getElementById('officerName').value = '';
+      document.getElementById('officerRole').value = '';
+      renderOfficersList();
+    }
+
+    async function deleteOfficer(index) {
+      if (!confirm("Revoke/delete this officer record?")) return;
+      currentCloudData.officers.splice(index, 1);
+      await pushCloudData();
+      renderOfficersList();
+    }
+  </script>
+</body>
+</html>

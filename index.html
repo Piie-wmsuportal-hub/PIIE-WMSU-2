@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department of Industrial Engineering | Western Mindanao State University</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wmsu: {
+              crimson: '#881337',
+              red: '#BE123C',
+              dark: '#4C0519',
+              gold: '#D97706',
+              gear: '#1E3A8A',
+              light: '#FFF1F2',
+              surface: '#FFFFFF',
+              border: '#E2E8F0',
+              muted: '#64748B'
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #F8FAFC; font-family: 'Plus Jakarta Sans', sans-serif; color: #0F172A; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-wmsu-crimson selection:text-white">
+
+  <!-- Institutional Top Bar -->
+  <div class="bg-wmsu-dark text-rose-100 text-[11px] sm:text-xs py-2 px-4 border-b border-rose-950">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2 truncate">
+        <span>Western Mindanao State University • College of Engineering</span>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <span class="text-amber-300 font-semibold hidden sm:inline">📍 Baliwasan, Zamboanga City</span>
+        <a href="admin.html" class="bg-white/10 hover:bg-white/20 text-rose-100 text-[10px] font-bold px-2.5 py-0.5 rounded transition">
+          🔒 Faculty/Officer Login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <div class="flex items-center -space-x-2">
+          <img src="assets/wmsu-seal.png" onerror="this.src='https://via.placeholder.com/48?text=WMSU'" alt="WMSU Official Seal" class="w-11 h-11 object-contain drop-shadow-sm z-10">
+          <img src="assets/ie-seal.png" onerror="this.src='https://via.placeholder.com/48?text=IE'" alt="IE Department Seal" class="w-11 h-11 object-contain drop-shadow-sm">
+        </div>
+        <div>
+          <h1 class="font-serif text-base sm:text-lg font-bold text-wmsu-dark leading-tight">Industrial Engineering</h1>
+          <p class="text-[10px] sm:text-[11px] tracking-wider uppercase text-wmsu-muted font-bold">WMSU • College of Engineering</p>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-1 text-xs font-semibold text-slate-600">
+        <a href="#bulletin" class="px-3 py-1.5 rounded-lg hover:text-wmsu-crimson hover:bg-rose-50 transition">Bulletins</a>
+        <a href="#curriculum" class="px-3 py-1.5 rounded-lg hover:text-wmsu-crimson hover:bg-rose-50 transition">Curriculum</a>
+        <a href="#research" class="px-3 py-1.5 rounded-lg hover:text-wmsu-crimson hover:bg-rose-50 transition">Research & Ergonomics</a>
+        <a href="#leadership" class="px-3 py-1.5 rounded-lg hover:text-wmsu-crimson hover:bg-rose-50 transition">Faculty Directory</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-wmsu-dark via-wmsu-crimson to-rose-950 text-white py-12 sm:py-16 px-4 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-8 space-y-4">
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1 rounded-full text-xs font-bold text-amber-300">
+          <span>⚙️ Innovate • Carry Through • Motivate</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight">
+          Pioneering process excellence & human systems optimization.
+        </h2>
+        <p class="text-sm sm:text-base text-rose-100 max-w-2xl leading-relaxed">
+          The official academic and departmental portal for BSIE students, faculty, and industry partners at Western Mindanao State University.
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#bulletin" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg transition">
+            Browse Department Memos ↓
+          </a>
+          <a href="#curriculum" class="bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl border border-white/20 backdrop-blur-sm transition">
+            View BSIE Curriculum
+          </a>
+          <div id="heroSocials" class="hidden flex items-center gap-2 pl-2"></div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 text-white space-y-3">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Department Leadership</span>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-900 font-bold flex items-center justify-center text-xl shadow-inner">
+            👩‍🏫
+          </div>
+          <div>
+            <h3 class="font-bold text-sm leading-snug">Engr. Aylene R. Ingko</h3>
+            <p class="text-[11px] text-rose-200">Department Head, Industrial Engineering</p>
+          </div>
+        </div>
+        <p class="text-xs text-rose-100/90 leading-relaxed pt-1 border-t border-white/10">
+          "Fostering competitive industrial engineers equipped with systems thinking, data analytics, and ethical leadership."
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 py-10 space-y-14">
+
+    <!-- SECTION: LIVE BULLETINS -->
+    <section id="bulletin" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+        <div>
+          <span class="text-[11px] uppercase font-bold tracking-wider text-wmsu-crimson">Verified Advisories</span>
+          <h3 class="font-serif text-2xl font-bold text-slate-900">Department Bulletins & Announcements</h3>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar pb-1 text-xs">
+          <button onclick="filterPosts('all')" class="bulletin-tab active-tab px-3.5 py-1.5 rounded-lg font-bold bg-wmsu-crimson text-white transition shrink-0" data-cat="all">All</button>
+          <button onclick="filterPosts('Academic')" class="bulletin-tab px-3.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition shrink-0" data-cat="Academic">Academic Memos</button>
+          <button onclick="filterPosts('PIES')" class="bulletin-tab px-3.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition shrink-0" data-cat="PIES">PIES Chapter</button>
+          <button onclick="filterPosts('OJT')" class="bulletin-tab px-3.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition shrink-0" data-cat="OJT">OJT & Plant Visits</button>
+          <button onclick="filterPosts('Events')" class="bulletin-tab px-3.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition shrink-0" data-cat="Events">Events</button>
+        </div>
+      </div>
+
+      <!-- Feed Grid -->
+      <div id="bulletinGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="col-span-full py-8 text-center text-slate-400 text-xs">Loading announcements from cloud...</div>
+      </div>
+    </section>
+
+    <!-- SECTION: BSIE CURRICULUM -->
+    <section id="curriculum" class="space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-wmsu-crimson">CMO-Compliant Program</span>
+        <h3 class="font-serif text-2xl font-bold text-slate-900">Bachelor of Science in Industrial Engineering (BSIE)</h3>
+        <p class="text-xs text-slate-500 mt-1">Course sequencing and major prerequisite tracks.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-wmsu-crimson uppercase tracking-wider">1st Year</span>
+            <span class="text-[10px] bg-rose-50 text-wmsu-crimson font-bold px-2 py-0.5 rounded">Foundations</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Engineering Mathematics & Chemistry</h4>
+          <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+            <li>Calculus 1 & 2</li>
+            <li>Engineering Chemistry & Physics</li>
+            <li>Industrial Organization & Management</li>
+            <li>Computer Fundamentals & Programming</li>
+          </ul>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-wmsu-crimson uppercase tracking-wider">2nd Year</span>
+            <span class="text-[10px] bg-amber-50 text-amber-800 font-bold px-2 py-0.5 rounded">Core Methods</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Work Measurement & Analytics</h4>
+          <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+            <li>Work Study & Measurement</li>
+            <li>Engineering Economy</li>
+            <li>Statistical Analysis for IE 1 & 2</li>
+            <li>Materials Science and Processes</li>
+          </ul>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-wmsu-crimson uppercase tracking-wider">3rd Year</span>
+            <span class="text-[10px] bg-blue-50 text-blue-800 font-bold px-2 py-0.5 rounded">Systems & OR</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Operations Research & Ergonomics</h4>
+          <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+            <li>Operations Research 1 & 2</li>
+            <li>Ergonomics 1 & 2 (Human Factors)</li>
+            <li>Supply Chain Management</li>
+            <li>Quality Management Systems</li>
+          </ul>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-wmsu-crimson uppercase tracking-wider">4th Year</span>
+            <span class="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded">Capstone & OJT</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Plant Design & Internship</h4>
+          <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+            <li>Facilities Planning & Design</li>
+            <li>IE Capstone Feasibility Project</li>
+            <li>Information Systems Engineering</li>
+            <li>On-the-Job Training (240 Hours)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: RESEARCH ARCHIVE -->
+    <section id="research" class="space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-wmsu-crimson">Scholarly Works</span>
+        <h3 class="font-serif text-2xl font-bold text-slate-900">Department Capstone & Research Showcase</h3>
+        <p class="text-xs text-slate-500 mt-1">Feasibility studies, ergonomics designs, and operations optimization papers produced by WMSU IE students.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-wmsu-dark">BSIE Feasibility / Capstone</span>
+            <span class="font-mono text-slate-400">2026</span>
+          </div>
+          <h4 class="font-bold text-sm text-slate-900">Ergonomic Workstation Redesign and Musculoskeletal Risk Assessment in Zamboanga Canning Lines</h4>
+          <p class="text-[11px] text-wmsu-muted font-medium">BSIE Capstone Group 3 (Adviser: Engr. A. Ingko)</p>
+          <p class="text-xs text-slate-600 pt-1 leading-relaxed border-t border-slate-100">Applied RULA and REBA posture metrics to mitigate repetitive motion bottlenecks across processing workstations.</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-wmsu-dark">BSIE Feasibility / Capstone</span>
+            <span class="font-mono text-slate-400">2025</span>
+          </div>
+          <h4 class="font-bold text-sm text-slate-900">Facility Layout Optimization for Municipal Cold Storage Distribution Using SLP Method</h4>
+          <p class="text-[11px] text-wmsu-muted font-medium">BSIE Research Cohort 2025</p>
+          <p class="text-xs text-slate-600 pt-1 leading-relaxed border-t border-slate-100">Minimized total material handling travel distances through Systematic Layout Planning (SLP) for commercial commodities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FACULTY DIRECTORY -->
+    <section id="leadership" class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+      <div class="text-center max-w-xl mx-auto space-y-1">
+        <span class="text-[11px] uppercase font-bold tracking-widest text-wmsu-crimson">Academic Mentorship</span>
+        <h3 class="font-serif text-2xl font-bold text-slate-900">Department Faculty & Advisers</h3>
+        <p class="text-xs text-slate-500">Committed to engineering education and regional industrial progress.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-wmsu-crimson text-white flex items-center justify-center font-bold text-sm shrink-0">AI</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900">Engr. Aylene R. Ingko</h4>
+            <p class="text-[11px] text-wmsu-crimson font-medium">Department Head</p>
+            <p class="text-[10px] text-slate-500 mt-0.5">Specialization: Operations Management, IE Curriculum</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-sm shrink-0">IE</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900">Faculty Members & Instructors</h4>
+            <p class="text-[11px] text-slate-600 font-medium">Industrial Engineering Program</p>
+            <p class="text-[10px] text-slate-500 mt-0.5">Ergonomics, Quality Control, Supply Chain, and Plant Layout</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm shrink-0">PI</div>
+          <div>
+            <h4 class="font-bold text-xs text-slate-900">PIES - WMSU Student Chapter</h4>
+            <p class="text-[11px] text-amber-700 font-medium">Student Leadership</p>
+            <p class="text-[10px] text-slate-500 mt-0.5">Affiliated with the Philippine Institute of Industrial Engineers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING CHAT WIDGET -->
+  <div id="floatingChatWrapper" class="fixed bottom-6 right-6 z-50 hidden">
+    <div id="socialPopup" class="hidden mb-3 bg-white border border-slate-200 rounded-2xl p-3 shadow-2xl w-60 space-y-2">
+      <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+        <span class="text-[11px] font-bold text-slate-900">Official Channels</span>
+        <button onclick="toggleSocialPopup()" class="text-slate-400 hover:text-slate-700 text-xs font-bold">✕</button>
+      </div>
+      <div id="popupSocialLinks" class="space-y-1.5 text-xs"></div>
+    </div>
+
+    <button onclick="toggleSocialPopup()" class="bg-wmsu-crimson hover:bg-rose-700 text-white font-bold px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border-2 border-white transition transform hover:scale-105">
+      <span class="text-base">💬</span>
+      <span class="text-xs">Chat / Inquire</span>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 text-xs py-8 px-4 border-t border-slate-800 mt-12">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <h4 class="text-white font-bold text-sm">Department of Industrial Engineering</h4>
+        <p class="text-[11px] text-slate-500">College of Engineering • Western Mindanao State University</p>
+        <p class="text-[10px] text-slate-600 mt-1">Normal Road, Baliwasan, Zamboanga City, Philippines 7000</p>
+      </div>
+
+      <div id="footerSocials" class="hidden flex items-center gap-2"></div>
+
+      <div class="text-right">
+        <a href="admin.html" class="inline-block bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition">
+          ⚙️ Open Officer Console
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const BIN_ID = "6ab7bc34ffd5d16053315598";
+    let bulletins = [];
+    let socials = {};
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchCloudData();
+    });
+
+    async function fetchCloudData() {
+      const grid = document.getElementById('bulletinGrid');
+      grid.innerHTML = '<div class="col-span-full py-8 text-center text-slate-400 text-xs">Loading announcements from cloud...</div>';
+
+      try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest?nocache=${Date.now()}`);
+        if (!response.ok) throw new Error("Status " + response.status);
+        
+        const data = await response.json();
+        const record = data.record || {};
+
+        bulletins = record.bulletins || [];
+        socials = record.socials || {};
+        
+        renderBulletins(bulletins);
+        renderSocialChannels();
+      } catch (err) {
+        console.error("Fetch error:", err);
+        const storedB = localStorage.getItem('wmsu_ie_bulletins');
+        if (storedB) {
+          bulletins = JSON.parse(storedB);
+          renderBulletins(bulletins);
+        } else {
+          grid.innerHTML = `<div class="col-span-full py-8 text-center text-rose-500 text-xs font-semibold">Feed temporarily unavailable: ${err.message}</div>`;
+        }
+      }
+    }
+
+    function renderBulletins(items) {
+      const grid = document.getElementById('bulletinGrid');
+      if (!items || items.length === 0) {
+        grid.innerHTML = '<div class="col-span-full py-12 text-center text-slate-400 text-xs bg-white rounded-2xl border border-dashed border-slate-200">No announcements posted under this category.</div>';
+        return;
+      }
+
+      grid.innerHTML = items.map(item => `
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-3 overflow-hidden">
+          <div>
+            ${item.mediaUrl ? `
+              <div class="mb-3 -mx-5 -mt-5 bg-slate-900 border-b border-slate-100 flex items-center justify-center overflow-hidden max-h-56">
+                ${item.mediaType === 'video' ? `
+                  <video controls class="w-full max-h-56 object-contain bg-black">
+                    <source src="${item.mediaUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                ` : `
+                  <img src="${item.mediaUrl}" alt="${item.title}" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                `}
+              </div>
+            ` : ''}
+
+            <div class="flex items-center justify-between text-[11px] mb-2">
+              <span class="font-bold uppercase tracking-wider px-2 py-0.5 rounded text-wmsu-crimson bg-rose-50 border border-rose-100">${item.category}</span>
+              <span class="text-slate-400">${item.date}</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm leading-snug">${item.title}</h4>
+            <p class="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">${item.summary}</p>
+          </div>
+          ${item.link && item.link !== '#' ? `
+            <a href="${item.link}" target="_blank" class="inline-block text-xs font-bold text-wmsu-crimson hover:underline pt-1">
+              Read Official Document / Attachment →
+            </a>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    function renderSocialChannels() {
+      const validChannels = [];
+
+      if (socials.facebook && socials.facebook.trim() !== '') {
+        validChannels.push({ name: 'Facebook / Messenger', url: socials.facebook, icon: '💬' });
+      }
+      if (socials.instagram && socials.instagram.trim() !== '') {
+        validChannels.push({ name: 'Instagram', url: socials.instagram, icon: '📷' });
+      }
+      if (socials.email && socials.email.trim() !== '') {
+        const mailUrl = socials.email.includes('@') && !socials.email.startsWith('mailto:') ? `mailto:${socials.email}` : socials.email;
+        validChannels.push({ name: 'Official Email', url: mailUrl, icon: '✉️' });
+      }
+      if (socials.telegram && socials.telegram.trim() !== '') {
+        validChannels.push({ name: 'Telegram Channel', url: socials.telegram, icon: '✈️' });
+      }
+      if (socials.discord && socials.discord.trim() !== '') {
+        validChannels.push({ name: 'Community Server', url: socials.discord, icon: '🎮' });
+      }
+
+      if (validChannels.length === 0) {
+        document.getElementById('floatingChatWrapper').classList.add('hidden');
+        document.getElementById('heroSocials').classList.add('hidden');
+        document.getElementById('footerSocials').classList.add('hidden');
+        return;
+      }
+
+      document.getElementById('floatingChatWrapper').classList.remove('hidden');
+
+      const popup = document.getElementById('popupSocialLinks');
+      popup.innerHTML = validChannels.map(ch => `
+        <a href="${ch.url}" target="_blank" class="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-50 transition border border-slate-100 text-slate-700 font-semibold">
+          <span>${ch.icon}</span>
+          <span>${ch.name}</span>
+        </a>
+      `).join('');
+
+      const hero = document.getElementById('heroSocials');
+      hero.classList.remove('hidden');
+      hero.innerHTML = validChannels.map(ch => `
+        <a href="${ch.url}" target="_blank" title="${ch.name}" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-sm transition">
+          ${ch.icon}
+        </a>
+      `).join('');
+
+      const footer = document.getElementById('footerSocials');
+      footer.classList.remove('hidden');
+      footer.innerHTML = validChannels.map(ch => `
+        <a href="${ch.url}" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-[11px] text-slate-300 transition flex items-center gap-1">
+          <span>${ch.icon}</span>
+          <span>${ch.name}</span>
+        </a>
+      `).join('');
+    }
+
+    function toggleSocialPopup() {
+      document.getElementById('socialPopup').classList.toggle('hidden');
+    }
+
+    function filterPosts(cat) {
+      document.querySelectorAll('.bulletin-tab').forEach(btn => {
+        if (btn.dataset.cat.toLowerCase() === cat.toLowerCase()) {
+          btn.className = "bulletin-tab active-tab px-3.5 py-1.5 rounded-lg font-bold bg-wmsu-crimson text-white transition shrink-0";
+        } else {
+          btn.className = "bulletin-tab px-3.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition shrink-0";
+        }
+      });
+
+      if (cat === 'all') {
+        renderBulletins(bulletins);
+      } else {
+        renderBulletins(bulletins.filter(b => {
+          if (!b.category) return false;
+          const postCat = b.category.toLowerCase().trim();
+          const target = cat.toLowerCase().trim();
+          return postCat.includes(target) || target.includes(postCat);
+        }));
+      }
+    }
+  </script>
+</body>
+</html>
