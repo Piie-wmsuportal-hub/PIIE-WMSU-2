@@ -229,6 +229,7 @@
   <script>
     const BIN_ID = "6ab7bc34ffd5d16053315598";
     const MASTER_KEY = "$2a$10$QrPR20KatCwbTMnUBc9Irebr.NN6C2lvS6bERJJiMnj6DODmeRmS2";
+    const ACCESS_KEY = "$2a$10$bT88xC6BfXoVDcPLZDt6auptMYUoWimb3bqrZr6WoU75bDVw9KclG";
 
     const CLOUDINARY_CLOUD_NAME = "wuyejn89";
     const CLOUDINARY_PRESET = "wmsu_ie_preset";
@@ -246,6 +247,7 @@
           method: "GET",
           headers: {
             "X-Master-Key": MASTER_KEY
+            "X-Access-Key": ACCESS_KEY
           }
         });
         if (!res.ok) throw new Error("Status " + res.status);
@@ -269,6 +271,7 @@
           headers: {
             "Content-Type": "application/json",
             "X-Master-Key": MASTER_KEY
+            "X-Access-Key": ACCESS_KEY
           },
           body: JSON.stringify(currentCloudData)
         });
