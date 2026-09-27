@@ -242,8 +242,13 @@
 
     async function pullCloudData() {
       try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest?nocache=${Date.now()}`);
-        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const res = await fetch("https://api.jsonbin.io/v3/b/" + BIN_ID + "/latest?nocache=" + Date.now(), {
+          method: "GET",
+          headers: {
+            "X-Master-Key": MASTER_KEY
+          }
+        });
+        if (!res.ok) throw new Error("Status " + res.status);
         
         const json = await res.json();
         currentCloudData = json.record || {};
@@ -259,7 +264,7 @@
       localStorage.setItem('wmsu_ie_pin', currentCloudData.pin || "1904");
 
       try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        const res = await fetch("https://api.jsonbin.io/v3/b/" + BIN_ID, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -267,9 +272,11 @@
           },
           body: JSON.stringify(currentCloudData)
         });
+        if (!res.ok) throw new Error("Save failed with status " + res.status);
         return await res.json();
       } catch (e) {
-        console.warn("Cloud sync stored locally:", e);
+        console.error("Cloud push failed:", e);
+        alert("Cloud save error: " + e.message);
       }
     }
 
