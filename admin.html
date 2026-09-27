@@ -329,7 +329,7 @@
       const container = document.getElementById('adminBulletinList');
       const list = currentCloudData.bulletins || [];
       if (list.length === 0) {
-        container.innerHTML = '<p class="text-slate-500 py-3">No active bulletins found on the cloud.</p>';
+        container.innerHTML = `<p class="text-slate-500 py-3">No active bulletins found on the cloud.</p>`;
         return;
       }
 
@@ -489,7 +489,7 @@
       const container = document.getElementById('officersList');
       const list = currentCloudData.officers || [];
       if (list.length === 0) {
-        container.innerHTML = '<p class="text-slate-500 text-[11px]">No officers registered yet.</p>';
+        container.innerHTML = `<p class="text-slate-500 text-[11px]">No officers registered yet.</p>`;
         return;
       }
 
